@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 
-@Table("t_customers")
+@Table(Tables.CUSTOMER)
 public class Customer {
     @Id
     Long id;
