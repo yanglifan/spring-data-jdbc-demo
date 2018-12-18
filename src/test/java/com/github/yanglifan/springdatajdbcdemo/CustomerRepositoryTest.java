@@ -8,7 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,5 +40,19 @@ public class CustomerRepositoryTest {
         assertThat(reloaded).isPresent();
 
         assertThat(reloaded.get().name).isEqualTo("Hans Albert");
+    }
+
+    @Test
+    public void test_named_query() {
+        Customer customer = new Customer();
+        customer.dob = LocalDate.of(1904, 5, 14);
+        customer.name = "Albert";
+
+        Customer saved = customerRepository.save(customer);
+
+        assertThat(saved.id).isNotNull();
+
+        Customer albert = customerRepository.findByName("Albert");
+        assertThat(albert).isNotNull();
     }
 }
